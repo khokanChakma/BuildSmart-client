@@ -53,8 +53,9 @@ const Navber = () => {
                                         <img id="showTooltip" className="w-12 h-12 rounded-full cursor-pointer" src={user?.photoURL} alt="" />
                                     </div>
                                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                        <li><a>deshboard</a></li>
-                                        <Link onClick={logOut}><button className="btn">LogOut</button></Link>
+                                        <li><a>{user?.displayName}</a></li>
+                                        <Link><li><a>deshboard</a></li></Link>
+                                        <Link onClick={logOut}><li><a>Logout</a></li></Link>
                                     </ul>
                                 </div>
                             </div>
