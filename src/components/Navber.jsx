@@ -5,14 +5,13 @@ import AuthContext from '../provider/AuthContext';
 const Navber = () => {
 
     const { user, logOut } = useContext(AuthContext);
-    console.log(user)
 
     const links = <>
-        <NavLink> <li><a>Home</a></li></NavLink>
-        <NavLink> <li><a>Apartment</a></li></NavLink>
+        <NavLink to='/'> <li><a>Home</a></li></NavLink>
+        <NavLink to='/apartments'> <li><a>Apartment</a></li></NavLink>
     </>
     return (
-        <div>
+        <div className='container mx-auto'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -32,7 +31,7 @@ const Navber = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[10] mt-3 w-52 p-2 shadow">
                             {links}
                         </ul>
                     </div>

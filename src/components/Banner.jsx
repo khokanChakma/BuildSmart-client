@@ -29,9 +29,9 @@ const Banner = () => {
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
             >
-                <SwiperSlide><img className='w-full h-96' src={slide1} alt="" /></SwiperSlide>
-                <SwiperSlide><img className='w-full h-96' src={slide2} alt="" /></SwiperSlide>
-                <SwiperSlide><img className='w-full h-96' src={slide3} alt="" /></SwiperSlide>
+                <SwiperSlide><img className='w-full h-96 object-cover' src={slide1} alt="" /></SwiperSlide>
+                <SwiperSlide><img className='w-full h-96 object-cover' src={slide2} alt="" /></SwiperSlide>
+                <SwiperSlide><img className='w-full h-96 object-cover' src={slide3} alt="" /></SwiperSlide>
             </Swiper>
         </>
     );

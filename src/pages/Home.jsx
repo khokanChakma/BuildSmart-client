@@ -5,7 +5,9 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <AboutBuilding></AboutBuilding>
+            <div className="container mx-auto">
+                <AboutBuilding></AboutBuilding>
+            </div>
         </div>
     );
 };
