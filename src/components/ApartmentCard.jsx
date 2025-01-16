@@ -21,7 +21,7 @@ const ApartmentCard = ({ apartment }) => {
                     <div className=" card-compact bg-base-100 rounded w-full p-4 border shadow-xl">
                         <div className="flex justify-center items-center">
                             <img
-                                className='object-cover rounded'
+                                className='object-cover rounded w-full h-[250px]'
                                 src={image}
                                 alt="photo" />
                         </div>

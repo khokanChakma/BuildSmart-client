@@ -9,10 +9,15 @@ import MyProfile from '../deshboard/MyProfile';
 import Anouncement from '../deshboard/Anouncement';
 import MakePayment from '../deshboard/MakePayment';
 import PaymentHistory from '../deshboard/PaymentHistory';
+import AdminProfile from '../deshboard/AdminProfile';
+import ManageMenbers from '../deshboard/ManageMenbers';
+import MakeAnnouncements from '../deshboard/MakeAnnouncements';
+import AgreementRequest from '../deshboard/AgreementRequest';
+import ManageCoupons from '../deshboard/ManageCoupons';
 
 const Router = createBrowserRouter([
     {
-        path:'/',
+        path: '/',
         element: <MainLayout></MainLayout>,
         children: [
             {
@@ -37,23 +42,43 @@ const Router = createBrowserRouter([
         path: 'deshboard',
         element: <Deshboard></Deshboard>,
         children: [
-            // for only user rout
+            // for only member rout
             {
-                path:'myProfile',
+                path: 'myProfile',
                 element: <MyProfile></MyProfile>
             },
             {
-                path:'announcements',
+                path: 'announcements',
                 element: <Anouncement></Anouncement>
             },
-            // for only member rout
             {
-                path:'makePayment',
+                path: 'makePayment',
                 element: <MakePayment></MakePayment>
             },
             {
-                path:'paymentHistory',
+                path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+            // for admin
+            {
+                path: 'adminProfile',
+                element: <AdminProfile></AdminProfile>
+            },
+            {
+                path: 'manageMembers',
+                element: <ManageMenbers></ManageMenbers>
+            },
+            {
+                path: 'makeAnnouncement',
+                element: <MakeAnnouncements></MakeAnnouncements>
+            },
+            {
+                path: 'agreementRequest',
+                element: <AgreementRequest></AgreementRequest>
+            },
+            {
+                path: 'manageCoupons',
+                element: <ManageCoupons></ManageCoupons>
             },
         ]
     }
