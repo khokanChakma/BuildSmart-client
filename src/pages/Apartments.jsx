@@ -13,7 +13,6 @@ const Apartments = () => {
             return res.data;
         }
     })
-    console.log(apartments)
 
 
     return (

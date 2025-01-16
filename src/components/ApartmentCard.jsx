@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../provider/AuthContext';
 
 const ApartmentCard = ({ apartment }) => {
+
     const { min_rent, max_rent, image, apartment_no, floor_no, block_name } = apartment;
+    const {user} = useContext(AuthContext);
+
+    const agreementData = {
+        userEmail: user?.email,
+        userName: user?.displayName,
+
+    }
+
     return (
         <div>
             <div className="animate__animated animate__slideInUp">
@@ -22,7 +32,7 @@ const ApartmentCard = ({ apartment }) => {
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-lg"><span className='font-semibold'>Floor No : </span> {floor_no}</p>
-                                <p className="text-lg"><span className='font-semibold'>Rent : </span> {apartment_no}</p>
+                                <p className="text-lg"><span className='font-semibold'>Rent : </span> {min_rent}-{max_rent}</p>
                             </div>
                         </div>
                         <div>

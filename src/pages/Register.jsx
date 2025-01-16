@@ -2,12 +2,13 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../provider/AuthContext';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 const Register = () => {
     const navigate = useNavigate()
     const { createNewUser, setUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
-
     const [errorMessage, setErrorMessage] = useState('');
+    const axiosPublic = useAxiosPublic();
 
     const handleRegisterSubmit = e => {
         e.preventDefault();
@@ -27,13 +28,24 @@ const Register = () => {
                 setUser(user)
                 updateUserProfile({ displayName: name, photoURL: photo })
                     .then(() => {
-                        Swal.fire({
-                            title: 'success!',
-                            text: 'Register is successfully',
-                            icon: 'success',
-                            confirmButtonText: 'ok'
+                        const userInfo = {
+                            userName: name,
+                            userEmail: email
+                        }
+                        axiosPublic.post('/users',userInfo)
+                        .then(res => {
+                            console.log(res.data);
+                            if(res.data.insertedId){
+                                Swal.fire({
+                                    title: 'success!',
+                                    text: 'Register is successfully',
+                                    icon: 'success',
+                                    confirmButtonText: 'ok'
+                                })
+                                navigate('/')
+                            }
                         })
-                        navigate('/')
+                        
                     })
                     .catch(error => {
                         console.log(error)
@@ -45,7 +57,15 @@ const Register = () => {
         signInWithGoogle()
             .then(result => {
                 setUser(result.user)
-                console.log(result.user)
+                const userInfo = {
+                    email: result?.user.email,
+                    name: result?.user.displayName
+                }
+                console.log(userInfo)
+                axiosPublic.post('/users',userInfo)
+                .then(res =>{
+                    console.log(res.data);
+                })
                 Swal.fire({
                     title: 'success!',
                     text: 'Register is successfully',

@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../provider/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 const Login = () => {
     const { userLogin, setUser, signInWithGoogle } = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const handleLoginSubmit = e => {
         e.preventDefault();
@@ -31,18 +33,58 @@ const Login = () => {
                 setErrorMessage('User email or Password doesn,t match. please try again')
             })
     }
-    const handleGoogleLogin = async () => {
-        signInWithGoogle()
-            .then(result => {
-                Swal.fire({
-                    title: 'success!',
-                    text: 'Login is successfully',
-                    icon: 'success',
-                })
-                navigate(location?.state ? location?.state : '/')
 
-            })
-    }
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithGoogle();
+            if (result?.user) {
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName
+                };
+    
+                const res = await axiosPublic.post('/users', userInfo);
+                console.log(res.data);
+    
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Login is successful',
+                    icon: 'success',
+                });
+    
+                navigate(location?.state?.from || '/');
+            }
+        } catch (error) {
+            console.error("Error during Google sign-in:", error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Login failed. Please try again.',
+                icon: 'error',
+            });
+        }
+    };
+    
+
+    // const handleGoogleLogin = async () => {
+    //     signInWithGoogle()
+    //         .then(result => {
+    //             const userInfo = {
+    //                 userEmail: result?.user.email,
+    //                 userName: result?.user.displayName
+    //             }
+    //             axiosPublic.post('/users',userInfo)
+    //             .then(res =>{
+    //                 console.log(res.data);
+    //             })
+    //             Swal.fire({
+    //                 title: 'success!',
+    //                 text: 'Login is successfully',
+    //                 icon: 'success',
+    //             })
+    //             navigate(location?.state ? location?.state : '/')
+
+    //         })
+    // }
     return (
         <div>
             <div className="bg-base-300 flex justify-center items-center">
