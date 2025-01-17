@@ -9,7 +9,7 @@ const ManageMenbers = () => {
     const axiosSecure = useAxiosSecure();
 
 
-    const { data: members = [],refetch } = useQuery({
+    const { data: members = [], refetch } = useQuery({
         queryKey: ['members'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users');
@@ -17,21 +17,39 @@ const ManageMenbers = () => {
         }
     });
 
-    const handleMakeAdmin = (member) =>{
+    // for admin
+    const handleMakeAdmin = (member) => {
         axiosSecure.patch(`/users/admin/${member._id}`)
-        .then(res => {
-            console.log(res.data);
-            if(res.data.modifiedCount > 0) {
-                refetch();
-                Swal.fire({
-                    position: "top-center",
-                    icon: "success",
-                    title: `${member.name} is an admin now`,
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-            }
-        })
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: `${member.name} is an admin now`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+    }
+    // for member
+    const handleMakeMember = (member) => {
+        axiosSecure.patch(`/users/member/${member._id}`)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: `${member.name} is an member now`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
     }
 
     const handleDeleteUser = (member) => {
@@ -83,11 +101,22 @@ const ManageMenbers = () => {
                                 <td>{member.name}</td>
                                 <td>{member.email}</td>
                                 <td>
-                                    {member.role === 'admin' ? 'Admin' : <button
-                                        onClick={() => handleMakeAdmin(member)}
-                                        className="btn text-2xl bg-orange-500">
-                                        <IoMdContacts />
-                                    </button>}
+                                    <div className="flex gap-3 items-center">
+                                        <div>
+                                            {member.role === 'admin' ? 'Admin' : <button
+                                                onClick={() => handleMakeAdmin(member)}
+                                                className="btn bg-orange-500">
+                                                Make Admin
+                                            </button>}
+                                        </div>
+                                        <div>
+                                            {member.role === 'member' ? 'member' : <button
+                                                onClick={() => handleMakeMember(member)}
+                                                className="btn bg-orange-500">
+                                                Make Member
+                                            </button>}
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
                                     <button
