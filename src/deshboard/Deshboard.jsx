@@ -6,9 +6,10 @@ import { MdHistory, MdManageAccounts, MdOutlinePayment } from "react-icons/md";
 import { RiCoupon2Line, RiProfileFill } from "react-icons/ri";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
+import useAdmin from "../hooks/useAdmin";
 
 const Deshboard = () => {
-    const isAdmin = true;
+    const isAdmin = useAdmin();
     const isMember = true;
     return (
         <div>

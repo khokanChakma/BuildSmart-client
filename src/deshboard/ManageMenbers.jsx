@@ -10,9 +10,9 @@ const ManageMenbers = () => {
 
 
     const { data: members = [],refetch } = useQuery({
-        queryKey: ('members'),
+        queryKey: ['members'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/users')
+            const res = await axiosSecure.get('/users');
             return res.data
         }
     });
