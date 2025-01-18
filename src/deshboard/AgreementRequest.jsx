@@ -2,12 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../provider/AuthContext";
 
 
 const AgreementRequest = () => {
+    const {user} = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
-    const axiosPublic = useAxiosPublic()
-
+    const [filterData, setFilterData] = useState([]);
     const { data: agreements = [], refetch } = useQuery({
         queryKey: ['agreements'],
         queryFn: async () => {
@@ -15,30 +17,26 @@ const AgreementRequest = () => {
             return res.data
         }
     });
-    console.log(agreements)
 
-    const handleAcceptUser = (agreement) => {
-        axiosPublic.post('/payments', agreement)
+    useEffect(() => {
+        const agreementData = agreements.filter(agreement => agreement.status === 'pending')
+        setFilterData(agreementData);
+    }, [agreements])
+
+    const handleAcceptUser = (id) => {
+        axiosSecure.patch(`/agreements/${id}`)
             .then(res => {
-                console.log(res.data);
-                Swal.fire({
-                    // position: "top-center",
-                    icon: "success",
-                    title: "agreement accepted successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                console.log(res.data)
+                refetch()
             })
 
-        axiosSecure.delete(`/agreements/${agreement._id}`)
+            axiosSecure.patch(`/makeMember?email=${user?.email}`)
             .then(res => {
-                if (res.data.deletedCount > 0) {
-                    refetch();
-                }
+                console.log(res.data)
             })
     }
 
-    const handleDelete = (agreement) => {
+    const handleReject = (agreement) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -50,11 +48,11 @@ const AgreementRequest = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/agreements/${agreement._id}`)
-                .then(res => {
-                    if (res.data.deletedCount > 0) {
-                        refetch();
-                    }
-                })
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                        }
+                    })
                 Swal.fire({
                     title: "Canceled!",
                     text: "Agreement has been canceled.",
@@ -85,7 +83,7 @@ const AgreementRequest = () => {
                     </thead>
                     <tbody>
                         {
-                            agreements.map((agreement, index) => <tr key={agreement._id}>
+                            filterData.map((agreement, index) => <tr key={agreement._id}>
                                 <th>{index + 1}</th>
                                 <td>{agreement.userName}</td>
                                 <td>{agreement.userEmail}</td>
@@ -97,12 +95,12 @@ const AgreementRequest = () => {
                                 <td>{agreement.status}</td>
                                 <td className="flex">
                                     <button
-                                        onClick={() => handleAcceptUser(agreement)}
+                                        onClick={() => handleAcceptUser(agreement._id)}
                                         className="btn">
                                         Accept
                                     </button>
                                     <button
-                                        onClick={() => handleDelete(agreement)}
+                                        onClick={() => handleReject(agreement)}
                                         className="btn">
                                         reject
                                     </button>

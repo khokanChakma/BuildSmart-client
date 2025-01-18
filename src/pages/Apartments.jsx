@@ -10,7 +10,7 @@ const Apartments = () => {
         queryKey: ['apartments'],
         queryFn: async () => {
             const res = await axiosPublic.get('/apartments');
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         }
     })

@@ -30,11 +30,11 @@ const Register = () => {
                     .then(() => {
                         const userInfo = {
                             name: name,
-                            email: email
+                            email: email,
+                            role: 'user'
                         }
                         axiosPublic.post('/users',userInfo)
                         .then(res => {
-                            console.log(res.data);
                             if(res.data.insertedId){
                                 Swal.fire({
                                     title: 'success!',
@@ -59,9 +59,9 @@ const Register = () => {
                 setUser(result.user)
                 const userInfo = {
                     email: result?.user.email,
-                    name: result?.user.displayName
+                    name: result?.user.displayName,
+                    role: 'user',
                 }
-                console.log(userInfo)
                 axiosPublic.post('/users',userInfo)
                 .then(res =>{
                     console.log(res.data);

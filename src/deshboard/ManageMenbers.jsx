@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { MdOutlineDelete } from "react-icons/md";
+import { IoMdContacts } from "react-icons/io";
 import Swal from "sweetalert2";
 
 
@@ -33,7 +34,6 @@ const ManageMenbers = () => {
                 }
             })
     }
-
     const handleDeleteUser = (member) => {
         Swal.fire({
             title: "Are you sure?",

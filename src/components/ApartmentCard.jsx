@@ -21,7 +21,6 @@ const ApartmentCard = ({ apartment }) => {
     const handleApartment = () => {
         axiosPublic.post('/agreements',agreementData)
         .then(res =>{
-            console.log(res.data);
             Swal.fire({
                 // position: "top-center",
                 icon: "success",

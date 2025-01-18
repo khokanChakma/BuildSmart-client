@@ -7,10 +7,31 @@ import { RiCoupon2Line, RiProfileFill } from "react-icons/ri";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
 import useAdmin from "../hooks/useAdmin";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import AuthContext from "../provider/AuthContext";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Deshboard = () => {
+    const { user } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
     const isAdmin = useAdmin();
-    const isMember = true;
+
+    const { data: users = [] } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/users');
+            return res.data
+        }
+    });
+    const memberData = users.filter(userData => userData.email === user?.email);
+
+    const roleData = (memberData[0]);
+
+
+
+
+
     return (
         <div>
             <Navber></Navber>
@@ -18,7 +39,7 @@ const Deshboard = () => {
                 <div className="w-64 min-h-screen">
                     <ul className="menu p-4">
                         {
-                            isMember ?
+                            roleData?.role === 'member' ?
                                 <>
                                     <li>
                                         <NavLink to="/deshboard/myProfile">
@@ -43,20 +64,11 @@ const Deshboard = () => {
                                 </>
                                 :
                                 <>
-                                    <li>
-                                        <NavLink to="/deshboard/myProfile">
-                                            <FaHome></FaHome>
-                                            My Profile</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/deshboard/announcements">
-                                            <GrAnnounce />
-                                            Announcements</NavLink>
-                                    </li>
+
                                 </>
                         }
                         {
-                            isAdmin && <>
+                            roleData?.role === 'admin' ? <>
                                 <li>
                                     <NavLink to="/deshboard/adminProfile">
                                         <RiProfileFill />
@@ -82,6 +94,25 @@ const Deshboard = () => {
                                         <RiCoupon2Line />
                                         Manage Coupons</NavLink>
                                 </li>
+                            </>
+                                :
+                                <></>
+                        }
+                        {
+                            roleData?.role === 'user' ? <>
+                                <li>
+                                    <NavLink to="/deshboard/myProfile">
+                                        <FaHome></FaHome>
+                                        My Profile</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/deshboard/announcements">
+                                        <GrAnnounce />
+                                        Announcements</NavLink>
+                                </li>
+                            </>
+                            :
+                            <>
                             </>
                         }
 
