@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { MdOutlineDelete } from "react-icons/md";
-import { IoMdContacts } from "react-icons/io";
 import Swal from "sweetalert2";
 
 
@@ -28,23 +27,6 @@ const ManageMenbers = () => {
                         position: "top-center",
                         icon: "success",
                         title: `${member.name} is an admin now`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            })
-    }
-    // for member
-    const handleMakeMember = (member) => {
-        axiosSecure.patch(`/users/member/${member._id}`)
-            .then(res => {
-                console.log(res.data);
-                if (res.data.modifiedCount > 0) {
-                    refetch();
-                    Swal.fire({
-                        position: "top-center",
-                        icon: "success",
-                        title: `${member.name} is an member now`,
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -101,22 +83,11 @@ const ManageMenbers = () => {
                                 <td>{member.name}</td>
                                 <td>{member.email}</td>
                                 <td>
-                                    <div className="flex gap-3 items-center">
-                                        <div>
-                                            {member.role === 'admin' ? 'Admin' : <button
-                                                onClick={() => handleMakeAdmin(member)}
-                                                className="btn bg-orange-500">
-                                                Make Admin
-                                            </button>}
-                                        </div>
-                                        <div>
-                                            {member.role === 'member' ? 'member' : <button
-                                                onClick={() => handleMakeMember(member)}
-                                                className="btn bg-orange-500">
-                                                Make Member
-                                            </button>}
-                                        </div>
-                                    </div>
+                                    {member.role === 'admin' ? 'Admin' : <button
+                                        onClick={() => handleMakeAdmin(member)}
+                                        className="btn bg-orange-500">
+                                        Make Admin
+                                    </button>}
                                 </td>
                                 <td>
                                     <button

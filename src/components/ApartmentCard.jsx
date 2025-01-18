@@ -1,15 +1,35 @@
 import React, { useContext } from 'react';
 import AuthContext from '../provider/AuthContext';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const ApartmentCard = ({ apartment }) => {
-
-    const { min_rent, max_rent, image, apartment_no, floor_no, block_name } = apartment;
+    const axiosPublic = useAxiosPublic();
+    const { rent, image, apartment_no, floor_no, block_name } = apartment;
     const {user} = useContext(AuthContext);
-
+    const requestDate = new Date();
     const agreementData = {
         userEmail: user?.email,
         userName: user?.displayName,
-
+        floor_no: floor_no,
+        block_name: block_name,
+        apartment_no: apartment_no,
+        rent: rent,
+        requestDate: requestDate,
+        status: 'pending'
+    }
+    const handleApartment = () => {
+        axiosPublic.post('/agreements',agreementData)
+        .then(res =>{
+            console.log(res.data);
+            Swal.fire({
+                // position: "top-center",
+                icon: "success",
+                title: "agreement is successfully added",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        })
     }
 
     return (
@@ -32,11 +52,11 @@ const ApartmentCard = ({ apartment }) => {
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-lg"><span className='font-semibold'>Floor No : </span> {floor_no}</p>
-                                <p className="text-lg"><span className='font-semibold'>Rent : </span> {min_rent}-{max_rent}</p>
+                                <p className="text-lg"><span className='font-semibold'>Rent : </span>{rent}</p>
                             </div>
                         </div>
                         <div>
-                            <button className='btn'>Agreement</button>
+                            <button onClick={handleApartment} className='btn'>Agreement</button>
                         </div>
                     </div>
                 </div>
