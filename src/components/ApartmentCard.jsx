@@ -51,7 +51,7 @@ const ApartmentCard = ({ apartment }) => {
                             </div>
                             <div className='flex justify-between'>
                                 <p className="text-lg"><span className='font-semibold'>Floor No : </span> {floor_no}</p>
-                                <p className="text-lg"><span className='font-semibold'>Rent : </span>{rent}</p>
+                                <p className="text-lg"><span className='font-semibold'>Rent : </span>${rent}</p>
                             </div>
                         </div>
                         <div>

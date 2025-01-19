@@ -33,7 +33,7 @@ const MakeAnnouncements = () => {
                     <div className="label">
                         <span className="label-text text-xl font-semibold">Title</span>
                     </div>
-                    <input type="text" name="title" placeholder="title" className="input input-bordered w-full" />
+                    <input type="text" name="title" placeholder="title" className="input input-bordered w-full" required />
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
@@ -42,6 +42,7 @@ const MakeAnnouncements = () => {
                     <textarea
                         name="description"
                         placeholder="Bio"
+                        required
                         className="textarea textarea-bordered textarea-sm w-full"></textarea>
                 </label>
                 <input className="btn" type="submit" value="submit" />

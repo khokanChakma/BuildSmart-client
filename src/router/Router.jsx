@@ -14,6 +14,7 @@ import ManageMenbers from '../deshboard/ManageMenbers';
 import MakeAnnouncements from '../deshboard/MakeAnnouncements';
 import AgreementRequest from '../deshboard/AgreementRequest';
 import ManageCoupons from '../deshboard/ManageCoupons';
+import Payment from '../deshboard/Payment';
 
 const Router = createBrowserRouter([
     {
@@ -26,7 +27,8 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/apartments',
-                element: <Apartments></Apartments>
+                element: <Apartments></Apartments>,
+                loader: ()=> fetch('http://localhost:5000/apartmentCount')
             },
             {
                 path: '/login',
@@ -54,6 +56,10 @@ const Router = createBrowserRouter([
             {
                 path: 'makePayment',
                 element: <MakePayment></MakePayment>
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
             },
             {
                 path: 'paymentHistory',

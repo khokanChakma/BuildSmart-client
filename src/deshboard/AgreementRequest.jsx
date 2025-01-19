@@ -7,7 +7,7 @@ import AuthContext from "../provider/AuthContext";
 
 
 const AgreementRequest = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
     const [filterData, setFilterData] = useState([]);
     const { data: agreements = [], refetch } = useQuery({
@@ -30,7 +30,7 @@ const AgreementRequest = () => {
                 refetch()
             })
 
-            axiosSecure.patch(`/makeMember?email=${user?.email}`)
+        axiosSecure.patch(`/makeMember?email=${user?.email}`)
             .then(res => {
                 console.log(res.data)
             })
@@ -44,18 +44,17 @@ const AgreementRequest = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, cancel it!"
+            confirmButtonText: "Yes, Reject it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/agreements/${agreement._id}`)
+                axiosSecure.patch(`/reject/${agreement._id}`)
                     .then(res => {
-                        if (res.data.deletedCount > 0) {
-                            refetch();
-                        }
+                        console.log(res.data)
+                        refetch()
                     })
                 Swal.fire({
-                    title: "Canceled!",
-                    text: "Agreement has been canceled.",
+                    title: "Rejected!",
+                    text: "Agreement has been rejected.",
                     icon: "success"
                 });
             }
