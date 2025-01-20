@@ -26,7 +26,7 @@ const Apartments = () => {
             setApartments(data);
         }
         fetchAllJobs();
-    }, [cardPerPage, currentPage,setApartments])
+    }, [cardPerPage, currentPage,setApartments,maxRent,minRent])
 
     const handlePrevPage = () => {
         if (currentPage > 0) {
