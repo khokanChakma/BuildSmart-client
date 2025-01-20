@@ -12,7 +12,7 @@ const MakeAnnouncements = () => {
         const title = form.title.value;
         const descripton = form.description.value;
 
-        const formData = { title, descripton }
+        const formData = { title, descripton, date: new Date()  }
         axiosSecure.post('/announcement', formData)
             .then(res => {
                 console.log(res.data);
