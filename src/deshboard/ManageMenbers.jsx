@@ -7,8 +7,6 @@ import Swal from "sweetalert2";
 
 const ManageMenbers = () => {
     const axiosSecure = useAxiosSecure();
-
-
     const { data: members = [], refetch } = useQuery({
         queryKey: ['members'],
         queryFn: async () => {

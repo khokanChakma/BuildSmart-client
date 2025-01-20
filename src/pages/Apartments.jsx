@@ -69,8 +69,7 @@ const Apartments = () => {
                     apartments.map(apartment => <ApartmentCard key={apartment._id} apartment={apartment}></ApartmentCard>)
                 }
             </div>
-            <div className="text-center mb-10 space-x-4">
-                <p>current page : {currentPage}</p>
+            <div className="text-center my-10 space-x-4">
                 <button onClick={handlePrevPage} className="btn">Prev</button>
                 {
                     pages.map(page => <button
