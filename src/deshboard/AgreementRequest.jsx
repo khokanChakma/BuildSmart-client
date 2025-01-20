@@ -23,14 +23,14 @@ const AgreementRequest = () => {
         setFilterData(agreementData);
     }, [agreements])
 
-    const handleAcceptUser = (id) => {
-        axiosSecure.patch(`/agreements/${id}`)
+    const handleAcceptUser = (agreement) => {
+        axiosSecure.patch(`/agreements/${agreement._id}`)
             .then(res => {
                 console.log(res.data)
                 refetch()
             })
 
-        axiosSecure.patch(`/makeMember?email=${user?.email}`)
+        axiosSecure.patch(`/makeMember?email=${agreement.userEmail}`)
             .then(res => {
                 console.log(res.data)
             })
@@ -92,9 +92,9 @@ const AgreementRequest = () => {
                                 <td>{agreement.rent}</td>
                                 <td>{agreement.requestDate}</td>
                                 <td>{agreement.status}</td>
-                                <td className="flex">
+                                <div className="flex gap-4">
                                     <button
-                                        onClick={() => handleAcceptUser(agreement._id)}
+                                        onClick={() => handleAcceptUser(agreement)}
                                         className="btn">
                                         Accept
                                     </button>
@@ -103,7 +103,7 @@ const AgreementRequest = () => {
                                         className="btn">
                                         reject
                                     </button>
-                                </td>
+                                </div>
                             </tr>)
                         }
 

@@ -17,10 +17,6 @@ const Apartments = () => {
 
 
     const pages = [...Array(numberOfPage).keys()];
-    console.log(pages)
-
-
-    console.log(currentPage, cardPerPage)
     
     useEffect(() => {
         const fetchAllJobs = async () => {

@@ -14,9 +14,18 @@ const MakePayment = () => {
         queryKey: ['payments'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/paymentsData?email=${user?.email}`);
+            console.log(res.data)
             return res.data
         }
     });
+
+    useEffect(() => {
+        const agreementData = payments.filter(payment => payment.status === 'checked')
+        setFilterData(agreementData);
+    }, [payments,setFilterData])
+    console.log(filterData)
+
+    const totalPrice = filterData.reduce((total, item) => total + item.rent, 0)
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -46,27 +55,17 @@ const MakePayment = () => {
         });
     }
 
-    useEffect(() => {
-        const agreementData = payments.filter(payment => payment.status === 'checked')
-        setFilterData(agreementData);
-        refetch
-    }, [payments])
-
-    const totalPrice = filterData.reduce((total, item) => total + item.rent, 0)
-
-
-
     return (
 
         <div className="p-10">
             <div className="flex items-center md:w-10/12 mx-auto justify-between">
                 <h2 className="text-2xl text-center font-semibold"> Total Agreement : {filterData.length}</h2>
                 <h2 className="text-2xl text-center font-semibold"> Total Price : ${totalPrice}</h2>
-                {filterData.length ?  <Link to='/deshboard/payment'>
+                {filterData.length ? <Link to='/deshboard/payment'>
                     <button className="btn text-2xl font-semibold">Pay</button>
                 </Link>
-                : <button disabled className="btn text-2xl font-semibold">Pay</button>
-}
+                    : <button disabled className="btn text-2xl font-semibold">Pay</button>
+                }
             </div>
             <div className="">
                 <table className="table table-zebra w-full">
@@ -98,7 +97,7 @@ const MakePayment = () => {
                                 <td>{payment.requestDate}</td>
                                 <td>{payment.status}</td>
                                 <td>
-                                    <button onClick={()=>handleDelete(payment._id)} className="btn text-red-600 text-xl"><MdDelete /></button>
+                                    <button onClick={() => handleDelete(payment._id)} className="btn text-red-600 text-xl"><MdDelete /></button>
                                 </td>
                             </tr>)
                         }

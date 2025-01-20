@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const ApartmentCard = ({ apartment }) => {
     const axiosPublic = useAxiosPublic();
-    const { rent, image, apartment_no, floor_no, block_name } = apartment;
+    const { rent, image, apartment_no, floor_no, block_name,_id } = apartment;
     const {user} = useContext(AuthContext);
     const requestDate = new Date();
     const agreementData = {
@@ -16,11 +16,13 @@ const ApartmentCard = ({ apartment }) => {
         apartment_no: apartment_no,
         rent: rent,
         requestDate: requestDate,
+        apartmentID: _id,
         status: 'pending'
     }
     const handleApartment = () => {
         axiosPublic.post('/agreements',agreementData)
         .then(res =>{
+            console.log(res.data)
             Swal.fire({
                 // position: "top-center",
                 icon: "success",

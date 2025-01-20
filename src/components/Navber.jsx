@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AuthContext from '../provider/AuthContext';
+import logo from '../assets/logo.png'
 
 const Navber = () => {
 
@@ -35,7 +36,10 @@ const Navber = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">BuildSmart</a>
+                    <Link to='/' className='flex justify-center items-center gap-2'>
+                        <img className='w-10 ' src={logo} alt="" />
+                        <a className="text-xl font-semibold">BuildSmart</a>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -46,7 +50,7 @@ const Navber = () => {
                     {
                         user && user?.email ?
                             <div className="flex justify-center items-center gap-4 z-10">
-                               
+
                                 <div className="dropdown dropdown-bottom dropdown-end">
                                     <div tabIndex={0} role="button" className="m-1">
                                         <img id="showTooltip" className="w-12 h-12 rounded-full cursor-pointer" src={user?.photoURL} alt="" />
