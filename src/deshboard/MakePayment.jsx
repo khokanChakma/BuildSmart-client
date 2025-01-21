@@ -22,10 +22,10 @@ const MakePayment = () => {
     useEffect(() => {
         const agreementData = payments.filter(payment => payment.status === 'checked')
         setFilterData(agreementData);
-    }, [payments,setFilterData])
+    }, [payments,setFilterData]);
     console.log(filterData)
 
-    const totalPrice = filterData.reduce((total, item) => total + item.rent, 0)
+    const totalPrice = filterData.reduce((total, item) => total + item.rent, 0);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -38,7 +38,6 @@ const MakePayment = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-
                 axiosPublic.delete(`/deletePayment/${id}`)
                     .then(res => {
                         console.log(res.data)
@@ -50,29 +49,30 @@ const MakePayment = () => {
                                 icon: "success"
                             });
                         }
-                    })
+                    });
             }
         });
-    }
+    };
 
     return (
-
         <div className="p-10">
-            <div className="flex items-center md:w-10/12 mx-auto justify-between">
-                <h2 className="text-2xl text-center font-semibold"> Total Agreement : {filterData.length}</h2>
-                <h2 className="text-2xl text-center font-semibold"> Total Price : ${totalPrice}</h2>
-                {filterData.length ? <Link to='/deshboard/payment'>
-                    <button className="btn text-2xl font-semibold">Pay</button>
-                </Link>
-                    : <button disabled className="btn text-2xl font-semibold">Pay</button>
-                }
+            <div className="flex flex-col md:flex-row items-center md:w-10/12 mx-auto justify-between space-y-4 md:space-y-0">
+                <h2 className="text-xl md:text-2xl text-center font-semibold"> Total Agreement : {filterData.length}</h2>
+                <h2 className="text-xl md:text-2xl text-center font-semibold"> Total Price : ${totalPrice}</h2>
+                {filterData.length ? (
+                    <Link to='/deshboard/payment'>
+                        <button className="btn text-lg md:text-2xl font-semibold">Pay</button>
+                    </Link>
+                ) : (
+                    <button disabled className="btn text-lg md:text-2xl font-semibold">Pay</button>
+                )}
             </div>
-            <div className="">
-                <table className="table table-zebra w-full">
+            <div className="overflow-x-auto">
+                <table className="table table-zebra w-full text-sm md:text-base">
                     {/* head */}
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Floor</th>
@@ -85,8 +85,8 @@ const MakePayment = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            filterData.map((payment, index) => <tr key={payment._id}>
+                        {filterData.map((payment, index) => (
+                            <tr key={payment._id}>
                                 <th>{index + 1}</th>
                                 <td>{payment.userName}</td>
                                 <td>{payment.userEmail}</td>
@@ -97,11 +97,12 @@ const MakePayment = () => {
                                 <td>{payment.requestDate}</td>
                                 <td>{payment.status}</td>
                                 <td>
-                                    <button onClick={() => handleDelete(payment._id)} className="btn text-red-600 text-xl"><MdDelete /></button>
+                                    <button onClick={() => handleDelete(payment._id)} className="btn text-red-600 text-xl">
+                                        <MdDelete />
+                                    </button>
                                 </td>
-                            </tr>)
-                        }
-
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
