@@ -51,6 +51,7 @@ const AuthProvider = ({ children }) => {
                             localStorage.setItem('access-token', res.data.token)
                         }
                     })
+                    setLoading(false);
             }
             else {
                 localStorage.removeItem('access-token')

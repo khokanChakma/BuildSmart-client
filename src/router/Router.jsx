@@ -16,6 +16,7 @@ import AgreementRequest from '../deshboard/AgreementRequest';
 import ManageCoupons from '../deshboard/ManageCoupons';
 import Payment from '../deshboard/Payment';
 import ErrorPage from '../error/ErrorPage';
+import PrivateRout from './PrivateRout';
 
 const Router = createBrowserRouter([
     {
@@ -29,7 +30,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/apartments',
-                element: <Apartments></Apartments>,
+                element: <PrivateRout><Apartments></Apartments></PrivateRout>,
                 loader: ()=> fetch('https://assignment-12-server-woad-two.vercel.app/apartmentCount')
             },
             {

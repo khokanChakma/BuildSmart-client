@@ -7,7 +7,6 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const ApartmentCard = ({ apartment }) => {
     const axiosPublic = useAxiosPublic();
-    const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
     const { rent, image, apartment_no, floor_no, block_name, _id } = apartment;
     const requestDate = new Date();
@@ -32,11 +31,12 @@ const ApartmentCard = ({ apartment }) => {
     });
 
     const agreementRequestId = payments.map(payment => payment.apartmentID)
-    
+
     const handleApartment = (id) => {
+
         const matchId = agreementRequestId.find(requestId => requestId === id)
         console.log(matchId)
-        if(matchId){
+        if (matchId) {
             return (
                 Swal.fire({
                     // position: "top-center",
