@@ -15,11 +15,13 @@ import MakeAnnouncements from '../deshboard/MakeAnnouncements';
 import AgreementRequest from '../deshboard/AgreementRequest';
 import ManageCoupons from '../deshboard/ManageCoupons';
 import Payment from '../deshboard/Payment';
+import ErrorPage from '../error/ErrorPage';
 
 const Router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -43,6 +45,7 @@ const Router = createBrowserRouter([
     {
         path: 'deshboard',
         element: <Deshboard></Deshboard>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             // for only member rout
             {
