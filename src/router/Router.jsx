@@ -30,7 +30,7 @@ const Router = createBrowserRouter([
             {
                 path: '/apartments',
                 element: <Apartments></Apartments>,
-                loader: ()=> fetch('http://localhost:5000/apartmentCount')
+                loader: ()=> fetch('https://assignment-12-server-woad-two.vercel.app/apartmentCount')
             },
             {
                 path: '/login',
