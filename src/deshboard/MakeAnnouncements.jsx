@@ -27,7 +27,7 @@ const MakeAnnouncements = () => {
 
     }
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen">
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                 <label className="form-control w-full">
                     <div className="label">

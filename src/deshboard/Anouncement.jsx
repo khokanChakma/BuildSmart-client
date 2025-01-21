@@ -15,7 +15,7 @@ const Anouncement = () => {
         }
     });
     return (
-        <div className='p-10 space-y-4'>
+        <div className='p-10 space-y-4 min-h-screen'>
             {
                 announcement.map(announcementData => <AnnouncementCart key={announcementData._id} announcementData={announcementData}></AnnouncementCart>)
             }

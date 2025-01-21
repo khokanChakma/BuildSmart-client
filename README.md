@@ -46,4 +46,4 @@ github link client: https://github.com/Programming-Hero-Web-Course4/b10a12-clien
 
 github link server : https://github.com/Programming-Hero-Web-Course4/b10a12-server-side-khokanChakma
 
-Live link: 
+Live link: https://exquisite-mousse-1a86e4.netlify.app/

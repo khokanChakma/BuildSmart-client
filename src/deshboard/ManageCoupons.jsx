@@ -2,8 +2,8 @@
 
 const ManageCoupons = () => {
     return (
-        <div>
-            Manage Coupons
+        <div className="min-h-screen">
+           
         </div>
     );
 };

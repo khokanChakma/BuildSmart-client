@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import AuthContext from "../provider/AuthContext";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import Footer from "../components/Footer";
 
 const Deshboard = () => {
     const { user } = useContext(AuthContext);
@@ -33,10 +34,10 @@ const Deshboard = () => {
 
 
     return (
-        <div>
+        <div className="container mx-auto">
             <Navber></Navber>
             <div className="md:flex gap-12">
-                <div className="w-64 min-h-screen">
+                <div className="md:w-3/12">
                     <ul className="menu p-4">
                         {
                             roleData?.role === 'member' ?
@@ -111,16 +112,19 @@ const Deshboard = () => {
                                         Announcements</NavLink>
                                 </li>
                             </>
-                            :
-                            <>
-                            </>
+                                :
+                                <>
+                                </>
                         }
 
                     </ul>
                 </div>
-                <div className="bg-red-50 w-full">
+                <div className="bg-red-50 md:w-9/12">
                     <Outlet></Outlet>
                 </div>
+            </div>
+            <div className="bg-[#eafcfa]">
+                <Footer></Footer>
             </div>
         </div>
     );

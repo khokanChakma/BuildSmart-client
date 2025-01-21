@@ -57,7 +57,7 @@ const ManageMembers = () => {
     };
 
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen">
             <h2 className="text-2xl text-center font-semibold">All Members ({members.length})</h2>
             <div className="overflow-x-auto">
                 <table className="table table-zebra min-w-full">

@@ -36,7 +36,7 @@ const AdminProfile = () => {
     }, [setRooms, axiosSecure])
 
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen">
             <div className="flex flex-col items-center justify-center">
                 <div className="">
                     <img className="h-24 w-24 rounded-full" src={user?.photoURL} alt="" />

@@ -26,6 +26,12 @@ const AgreementRequest = () => {
             .then(res => {
                 console.log(res.data);
                 refetch();
+                Swal.fire({
+                    icon: "success",
+                    title: "successfully accepted",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             });
 
         axiosSecure.patch(`/makeMember?email=${agreement.userEmail}`)
@@ -60,10 +66,10 @@ const AgreementRequest = () => {
     };
 
     return (
-        <div className="p-10">
-            <h2 className="text-2xl text-center font-semibold">All Agreements</h2>
+        <div className="p-10 min-h-screen">
+            <h2 className="text-2xl text-center font-semibold">All Agreements Request</h2>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full text-sm md:text-base">
+                <table className="table table-zebra  text-sm md:text-base">
                     {/* head */}
                     <thead>
                         <tr>

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import AuthContext from '../provider/AuthContext';
 import logo from '../assets/logo.png'
+import Theme from '../Theme/Theme';
 
 const Navber = () => {
 
@@ -47,6 +48,9 @@ const Navber = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    <div className='mr-4'>
+                        <Theme></Theme>
+                    </div>
                     {
                         user && user?.email ?
                             <div className="flex justify-center items-center gap-4 z-10">

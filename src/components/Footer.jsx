@@ -7,7 +7,7 @@ import logo from '../assets/logo.png'
 const Footer = () => {
     return (
         <div>
-            <footer className="justify-center items-center text-base-content p-10 text-gray-500">
+            <footer className="justify-center items-center text-base-content p-6 mt-8 text-gray-500">
                 <nav className='flex w-full flex-col space-y-2 justify-center items-center'>
                     <div className='flex gap-2 items-center'>
                         <div>
@@ -17,7 +17,7 @@ const Footer = () => {
                     </div>
                     <div className='flex gap-4'>
                         <Link to='/'>Home</Link>
-                        <Link to='contact'>Contact</Link>
+                        <Link>Contact</Link>
                     </div>
                     <h6 className="text-xl">Social</h6>
                     <div className="flex gap-4 text-3xl">

@@ -19,7 +19,7 @@ const PaymentHistory = () => {
     console.log(payments);
 
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen">
             <h2 className="text-2xl text-center font-semibold mb-6">Transaction History</h2>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">

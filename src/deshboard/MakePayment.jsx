@@ -55,7 +55,7 @@ const MakePayment = () => {
     };
 
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen">
             <div className="flex flex-col md:flex-row items-center md:w-10/12 mx-auto justify-between space-y-4 md:space-y-0">
                 <h2 className="text-xl md:text-2xl text-center font-semibold"> Total Agreement : {filterData.length}</h2>
                 <h2 className="text-xl md:text-2xl text-center font-semibold"> Total Price : ${totalPrice}</h2>
