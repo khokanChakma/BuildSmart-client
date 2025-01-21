@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../provider/AuthContext';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const ApartmentCard = ({ apartment }) => {
     const axiosPublic = useAxiosPublic();
-    const { rent, image, apartment_no, floor_no, block_name,_id } = apartment;
-    const {user} = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
+    const { user } = useContext(AuthContext);
+    const { rent, image, apartment_no, floor_no, block_name, _id } = apartment;
     const requestDate = new Date();
     const agreementData = {
         userEmail: user?.email,
@@ -19,18 +22,44 @@ const ApartmentCard = ({ apartment }) => {
         apartmentID: _id,
         status: 'pending'
     }
-    const handleApartment = () => {
-        axiosPublic.post('/agreements',agreementData)
-        .then(res =>{
-            console.log(res.data)
-            Swal.fire({
-                // position: "top-center",
-                icon: "success",
-                title: "agreement is successfully added",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        })
+
+    const { data: payments = [], refetch } = useQuery({
+        queryKey: ['payments'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/paymentsData?email=${user?.email}`);
+            return res.data
+        }
+    });
+
+    const agreementRequestId = payments.map(payment => payment.apartmentID)
+    
+    const handleApartment = (id) => {
+        const matchId = agreementRequestId.find(requestId => requestId === id)
+        console.log(matchId)
+        if(matchId){
+            return (
+                Swal.fire({
+                    // position: "top-center",
+                    icon: "error",
+                    title: "You already added the apartment",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            )
+        }
+
+        axiosPublic.post('/agreements', agreementData)
+            .then(res => {
+                console.log(res.data)
+                refetch();
+                Swal.fire({
+                    // position: "top-center",
+                    icon: "success",
+                    title: "agreement is successfully added",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
     }
 
     return (
@@ -57,7 +86,7 @@ const ApartmentCard = ({ apartment }) => {
                             </div>
                         </div>
                         <div>
-                            <button onClick={handleApartment} className='btn'>Agreement</button>
+                            <button onClick={() => handleApartment(_id)} className='btn'>Agreement</button>
                         </div>
                     </div>
                 </div>
