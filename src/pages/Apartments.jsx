@@ -51,14 +51,14 @@ const Apartments = () => {
                             placeholder="Min Rent"
                             value={minRent}
                             onChange={(e) => setMinRent(e.target.value)}
-                            className="input input-bordered"
+                            className="input w-36 input-bordered"
                         />
                         <input
                             type="number"
                             placeholder="Max Rent"
                             value={maxRent}
                             onChange={(e) => setMaxRent(e.target.value)}
-                            className="input input-bordered"
+                            className="input w-36 input-bordered"
                         />
                         <button className="btn btn-primary">Search</button>
                     </div>
