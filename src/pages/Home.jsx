@@ -12,6 +12,9 @@ const Home = () => {
             <div className="container mx-auto">
                 <ApartmentLocation></ApartmentLocation>
             </div>
+            <div>
+                <Contact></Contact>
+            </div>
         </div>
     );
 };
