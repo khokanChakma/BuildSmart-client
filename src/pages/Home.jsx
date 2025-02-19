@@ -1,6 +1,7 @@
 import AboutBuilding from "../components/AboutBuilding";
 import ApartmentLocation from "../components/ApartmentLocation";
 import Banner from "../components/Banner";
+import Contact from "../components/Contact";
 
 const Home = () => {
     return (

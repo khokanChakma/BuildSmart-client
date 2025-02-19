@@ -120,9 +120,10 @@ const CheckOutForm = () => {
     }
 
     return (
-        <div className="mt-6">
+        <div className="mt-6 p-6 bg-gray-200 border-2 border-gray-600">
             <form onSubmit={handleSubmit}>
-                <CardElement
+                <CardElement 
+                    className="border-2 border-gray-300 p-4 text-white"
                     options={{
                         style: {
                             base: {
@@ -139,7 +140,7 @@ const CheckOutForm = () => {
                     }}
                 />
                 <button className="btn btn-sm btn-primary mt-4" type="submit" disabled={!stripe || !clientSecret}>
-                    Pay
+                    Confirm Pay
                 </button>
                 <p className="text-red-500">{error}</p>
                 {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
